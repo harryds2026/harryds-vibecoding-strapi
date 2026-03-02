@@ -12,6 +12,7 @@
     "start": "strapi start",
     "start:cloud": "STRAPI_ENFORCE_SOURCEMAPS=false strapi develop --watch-admin=false",
     "strapi": "strapi",
+    "template:publish": "bash scripts/publish-template.sh",
     "upgrade": "npx @strapi/upgrade latest",
     "upgrade:dry": "npx @strapi/upgrade latest --dry"
   },

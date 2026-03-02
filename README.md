@@ -4,27 +4,71 @@ Strapi CMS with PostgreSQL, pre-configured for one-click deployment on Zeabur.
 
 [![Deploy on Zeabur](https://zeabur.com/button.svg)](https://zeabur.com/templates/7YJAKW)
 
-## Deploy
+## 1) One-click Deploy (No Code)
 
-Click the button above to deploy your own Strapi CMS instance. You will be asked to:
+Use this when you only need to manage content (articles, images, text):
 
-1. Enter a domain name (e.g. `my-cms`, your site will be at `my-cms.zeabur.app`)
-2. Click **Deploy**
-3. Wait a few minutes for the build to complete
-4. Open `https://<your-domain>.zeabur.app/admin` to create your admin account
+1. Click the deploy button above
+2. Enter your domain name
+3. Click **Deploy**
+4. Open `https://<your-domain>.zeabur.app/admin`
+5. Create your admin account and start managing content
 
-PostgreSQL and all required environment variables are configured automatically.
+PostgreSQL and required environment variables are provisioned automatically.
 
-## Local Development
+## 2) Edit Content Types (Schema) Locally
+
+Strapi in production does not allow editing content types directly in cloud admin.
+To change content types, use local development and push code updates.
 
 ```bash
 cp .env.example .env
-# Edit .env with your own values
 npm install
 npm run develop
 ```
 
 Open [http://localhost:1337/admin](http://localhost:1337/admin) to access the admin panel.
+
+After updating your content types:
+
+```bash
+git add .
+git commit -m "Update content types"
+git push
+```
+
+Zeabur will redeploy automatically with your new schema.
+
+## 3) Student Self-Service Template Automation
+
+If each student uses their own GitHub repo, run this script in their forked repo.
+It resolves their GitHub repo ID and creates/updates their own Zeabur template.
+
+Prerequisites (one-time):
+
+```bash
+gh auth login
+```
+
+The script will prompt Zeabur login in browser when needed.
+
+Create a new template:
+
+```bash
+npm run template:publish -- --repo <owner>/<repo>
+```
+
+Update an existing template:
+
+```bash
+npm run template:publish -- --repo <owner>/<repo> --code <template-code>
+```
+
+Example:
+
+```bash
+npm run template:publish -- --repo harrychuang/harryds-vibecoding-strapi --code 7YJAKW
+```
 
 ## Environment Variables
 
